@@ -1,5 +1,10 @@
 .. Macros/Configuration//BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS |10
 
+.. Copyright Aleksey Gurtovoy, David Abrahams 2007.
+.. Distributed under the Boost
+.. Software License, Version 1.0. (See accompanying
+.. file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
 =====================================
 .. _`BOOST_MPL_CFG_NO_PREPROCESSED`:
@@ -35,5 +40,4 @@ See also
 
 |Macros|, |Configuration|
 
-.. |preprocessed headers| replace:: `preprocessed headers`__
-__ `BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS`_
+.. |preprocessed headers| replace:: `preprocessed headers <|BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS link|>`__

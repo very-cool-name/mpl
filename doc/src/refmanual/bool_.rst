@@ -1,5 +1,10 @@
 .. Data Types/Numeric//bool_ |10
 
+.. Copyright Aleksey Gurtovoy, David Abrahams 2007.
+.. Distributed under the Boost
+.. Software License, Version 1.0. (See accompanying
+.. file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 bool\_
 ======
 
@@ -83,10 +88,5 @@ See also
 |Data Types|, |Integral Constant|, |int_|, |long_|, |integral_c|
 
 
-.. |true_| replace:: |``true_``|__
-.. |``true_``| replace:: ``true_``
-__ `bool\_`_
-
-.. |false_| replace:: |``false_``|__
-.. |``false_``| replace:: ``false_``
-__ `bool\_`_
+.. |true_| replace:: ```true_`` <|bool_ link|>`__
+.. |false_| replace:: ```false_`` <|bool_ link|>`__

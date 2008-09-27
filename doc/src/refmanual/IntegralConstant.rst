@@ -1,5 +1,10 @@
 .. Data Types/Concepts//Integral Constant
 
+.. Copyright Aleksey Gurtovoy, David Abrahams 2007.
+.. Distributed under the Boost
+.. Software License, Version 1.0. (See accompanying
+.. file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 Integral Constant
 =================
 
@@ -19,6 +24,8 @@ Expression requirements
 +-----------------------------------+---------------------------------------+---------------------------+
 | Expression                        | Type                                  | Complexity                |
 +===================================+=======================================+===========================+
+| ``n::tag``                        | ``integral_c_tag``                    | Constant time.            |
++-----------------------------------+---------------------------------------+---------------------------+
 | ``n::value_type``                 | An integral type                      | Constant time.            |
 +-----------------------------------+---------------------------------------+---------------------------+
 | ``n::value``                      | An integral constant expression       | Constant time.            |
@@ -39,6 +46,9 @@ Expression semantics
 +---------------------------------------+-----------------------------------------------------------+
 | Expression                            | Semantics                                                 |
 +=======================================+===========================================================+
+| ``n::tag``                            | ``n``\ 's tag type; ``n::tag::value`` is ``n``\ 's        |
+|                                       | *conversion rank*.                                        |
++---------------------------------------+-----------------------------------------------------------+
 | ``n::value_type``                     | A cv-unqualified type of ``n::value``.                    |
 +---------------------------------------+-----------------------------------------------------------+
 | ``n::value``                          | The value of the wrapped integral constant.               |
