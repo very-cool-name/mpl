@@ -209,6 +209,7 @@ struct trait \
 // "substitute" template as an argument to the overloaded test
 // functions to get SFINAE to work for member templates with the
 // correct name but different number of arguments.
+#   if !defined (__SUNPRO_CC)
 #   define BOOST_MPL_HAS_MEMBER_MULTI_SUBSTITUTE(z, n, args) \
       template< \
           template< BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), typename V) > class V \
@@ -216,6 +217,15 @@ struct trait \
       struct BOOST_MPL_HAS_MEMBER_INTROSPECTION_SUBSTITUTE_NAME(args, n) { \
       }; \
     /**/
+#   else
+#   define BOOST_MPL_HAS_MEMBER_MULTI_SUBSTITUTE(z, n, args) \
+      template< \
+          template< BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), typename V) > class V \
+       > \
+      struct BOOST_MPL_HAS_MEMBER_INTROSPECTION_SUBSTITUTE_NAME(args, n) { \
+      typedef void type; }; \
+    /**/
+#   endif
 
 #   define BOOST_MPL_HAS_MEMBER_SUBSTITUTE(args, substitute_macro) \
       BOOST_PP_REPEAT( \
@@ -232,16 +242,29 @@ struct trait \
     /**/
 
 #   if !BOOST_MPL_HAS_XXX_NO_WRAPPED_TYPES
-#     define BOOST_MPL_HAS_MEMBER_MULTI_ACCEPT(z, n, args) \
-        template< typename V > \
-        static boost::mpl::aux::yes_tag \
-        BOOST_MPL_HAS_MEMBER_INTROSPECTION_TEST_NAME(args)( \
-            boost::mpl::aux::type_wrapper< V > const volatile* \
-          , BOOST_MPL_HAS_MEMBER_INTROSPECTION_SUBSTITUTE_NAME(args, n) < \
-                V::template BOOST_PP_ARRAY_ELEM(1, args) \
-            >* = 0 \
-        ); \
-      /**/
+#     if !defined (__SUNPRO_CC)
+#       define BOOST_MPL_HAS_MEMBER_MULTI_ACCEPT(z, n, args) \
+          template< typename V > \
+          static boost::mpl::aux::yes_tag \
+          BOOST_MPL_HAS_MEMBER_INTROSPECTION_TEST_NAME(args)( \
+              boost::mpl::aux::type_wrapper< V > const volatile* \
+            , BOOST_MPL_HAS_MEMBER_INTROSPECTION_SUBSTITUTE_NAME(args, n) < \
+                  V::template BOOST_PP_ARRAY_ELEM(1, args) \
+              >* = 0 \
+          ); \
+        /**/
+#     else
+#       define BOOST_MPL_HAS_MEMBER_MULTI_ACCEPT(z, n, args) \
+          template< typename V > \
+          static boost::mpl::aux::yes_tag \
+          BOOST_MPL_HAS_MEMBER_INTROSPECTION_TEST_NAME(args)( \
+              boost::mpl::aux::type_wrapper< V > const volatile* \
+            , typename BOOST_MPL_HAS_MEMBER_INTROSPECTION_SUBSTITUTE_NAME(args, n) < \
+                  U::template BOOST_PP_ARRAY_ELEM(1, args) \
+              >::type* = 0 \
+          ); \
+        /**/
+#     endif
 #     define BOOST_MPL_HAS_MEMBER_ACCEPT(args, member_macro) \
         BOOST_PP_REPEAT( \
             BOOST_PP_ARRAY_ELEM(2, args) \
