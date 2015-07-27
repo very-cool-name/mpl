@@ -12,7 +12,7 @@
 // $Revision$
 
 #include <boost/mpl/sizeof.hpp>
-#include <boost/mpl/aux_/test.hpp>
+#include <boost/mpl/aux_/test_no_nm.hpp>
 
 struct my
 {
@@ -21,8 +21,8 @@ struct my
 
 MPL_TEST_CASE()
 {
-    MPL_ASSERT_RELATION( sizeof_<char>::value, ==, sizeof(char) );
-    MPL_ASSERT_RELATION( sizeof_<int>::value, ==, sizeof(int) );
-    MPL_ASSERT_RELATION( sizeof_<double>::value, ==, sizeof(double) );
-    MPL_ASSERT_RELATION( sizeof_<my>::value, ==, sizeof(my) );
+    MPL_ASSERT_RELATION( boost::mpl::sizeof_<char>::value, ==, sizeof(char) );
+    MPL_ASSERT_RELATION( boost::mpl::sizeof_<int>::value, ==, sizeof(int) );
+    MPL_ASSERT_RELATION( boost::mpl::sizeof_<double>::value, ==, sizeof(double) );
+    MPL_ASSERT_RELATION( boost::mpl::sizeof_<my>::value, ==, sizeof(my) );
 }

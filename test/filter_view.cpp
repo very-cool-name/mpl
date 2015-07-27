@@ -19,24 +19,24 @@
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/equal.hpp>
-#include <boost/mpl/aux_/test.hpp>
+#include <boost/mpl/aux_/test_no_nm.hpp>
 
 #include <boost/type_traits/is_float.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 MPL_TEST_CASE()
 {
-    typedef mpl::list<int,float,long,float,char[50],long double,char> types;
-    typedef mpl::list<float,float,long double> floats;
+    typedef boost::mpl::list<int,float,long,float,char[50],long double,char> types;
+    typedef boost::mpl::list<float,float,long double> floats;
 
-    MPL_ASSERT(( equal< mpl::filter_view< types,boost::is_float<_> >::type,floats > ));
+    MPL_ASSERT(( boost::mpl::equal< boost::mpl::filter_view< types,boost::is_float<boost::mpl::_> >::type,floats > ));
 
-    typedef mpl::max_element<
-          mpl::transform_view<
-              mpl::filter_view< types,boost::is_float<_> >
-            , mpl::sizeof_<_>
+    typedef boost::mpl::max_element<
+          boost::mpl::transform_view<
+              boost::mpl::filter_view< types,boost::is_float<boost::mpl::_> >
+            , boost::mpl::sizeof_<boost::mpl::_>
             >
         >::type iter;
 
-    MPL_ASSERT((is_same<mpl::deref<iter::base>::type, long double>));
+    MPL_ASSERT((boost::is_same<boost::mpl::deref<iter::base>::type, long double>));
 }

@@ -17,24 +17,24 @@
 #include <boost/mpl/list.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/equal.hpp>
-#include <boost/mpl/aux_/test.hpp>
+#include <boost/mpl/aux_/test_no_nm.hpp>
 
 MPL_TEST_CASE()
 {
-    typedef list<int,long,char,char[50],double> types;
-    typedef list<
-        sizeof_<int>::type,
-        sizeof_<long>::type,
-        sizeof_<char>::type,
-        sizeof_<char[50]>::type,
-        sizeof_<double>::type
+    typedef boost::mpl::list<int,long,char,char[50],double> types;
+    typedef boost::mpl::list<
+        boost::mpl::sizeof_<int>::type,
+        boost::mpl::sizeof_<long>::type,
+        boost::mpl::sizeof_<char>::type,
+        boost::mpl::sizeof_<char[50]>::type,
+        boost::mpl::sizeof_<double>::type
     > sizes;
 
-    MPL_ASSERT(( equal< transform_view< types, sizeof_<_> >::type,sizes > ));
+    MPL_ASSERT(( boost::mpl::equal< boost::mpl::transform_view< types, boost::mpl::sizeof_<boost::mpl::_> >::type,sizes > ));
 
-    typedef max_element<
-          transform_view< types, sizeof_<_> >
+    typedef boost::mpl::max_element<
+          boost::mpl::transform_view< types, boost::mpl::sizeof_<boost::mpl::_> >
         >::type iter;
 
-    MPL_ASSERT_RELATION( deref<iter>::type::value, ==, 50 );
+    MPL_ASSERT_RELATION( boost::mpl::deref<iter>::type::value, ==, 50 );
 }

@@ -20,7 +20,7 @@
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/apply.hpp>
 
-#include <boost/mpl/aux_/test.hpp>
+#include <boost/mpl/aux_/test_no_nm.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_float.hpp>
@@ -33,46 +33,46 @@ struct my
 MPL_TEST_CASE()
 {
     // !(x == char) && !(x == double) || sizeof(x) > 8
-    typedef lambda<
-        or_<
-              and_<
-                    not_< boost::is_same<_1, char> >
-                  , not_< boost::is_float<_1> >
+    typedef boost::mpl::lambda<
+        boost::mpl::or_<
+              boost::mpl::and_<
+                    boost::mpl::not_< boost::is_same<boost::mpl::_1, char> >
+                  , boost::mpl::not_< boost::is_float<boost::mpl::_1> >
                   >
-            , greater< sizeof_<_1>, mpl::size_t<8> >
+            , boost::mpl::greater< boost::mpl::sizeof_<boost::mpl::_1>, boost::mpl::size_t<8> >
             >
         >::type f;
 
-    MPL_ASSERT_NOT(( apply_wrap1<f,char> ));
-    MPL_ASSERT_NOT(( apply_wrap1<f,double> ));
-    MPL_ASSERT(( apply_wrap1<f,long> ));
-    MPL_ASSERT(( apply_wrap1<f,my> ));
+    MPL_ASSERT_NOT(( boost::mpl::apply_wrap1<f,char> ));
+    MPL_ASSERT_NOT(( boost::mpl::apply_wrap1<f,double> ));
+    MPL_ASSERT(( boost::mpl::apply_wrap1<f,long> ));
+    MPL_ASSERT(( boost::mpl::apply_wrap1<f,my> ));
 }
 
 MPL_TEST_CASE()
 {
     // x == y || x == my || sizeof(x) == sizeof(y)
-    typedef lambda<
-        or_< 
-              boost::is_same<_1, _2>
-            , boost::is_same<_2, my>
-            , equal_to< sizeof_<_1>, sizeof_<_2> >
+    typedef boost::mpl::lambda<
+        boost::mpl::or_< 
+              boost::is_same<boost::mpl::_1, boost::mpl::_2>
+            , boost::is_same<boost::mpl::_2, my>
+            , boost::mpl::equal_to< boost::mpl::sizeof_<boost::mpl::_1>, boost::mpl::sizeof_<boost::mpl::_2> >
             >
         >::type f;
 
-    MPL_ASSERT_NOT(( apply_wrap2<f,double,char> ));
-    MPL_ASSERT_NOT(( apply_wrap2<f,my,int> ));
-    MPL_ASSERT_NOT(( apply_wrap2<f,my,char[99]> ));
-    MPL_ASSERT(( apply_wrap2<f,int,int> ));
-    MPL_ASSERT(( apply_wrap2<f,my,my> ));
-    MPL_ASSERT(( apply_wrap2<f,signed long, unsigned long> ));
+    MPL_ASSERT_NOT(( boost::mpl::apply_wrap2<f,double,char> ));
+    MPL_ASSERT_NOT(( boost::mpl::apply_wrap2<f,my,int> ));
+    MPL_ASSERT_NOT(( boost::mpl::apply_wrap2<f,my,char[99]> ));
+    MPL_ASSERT(( boost::mpl::apply_wrap2<f,int,int> ));
+    MPL_ASSERT(( boost::mpl::apply_wrap2<f,my,my> ));
+    MPL_ASSERT(( boost::mpl::apply_wrap2<f,signed long, unsigned long> ));
 }
 
 MPL_TEST_CASE()
 {
     // bind <-> lambda interaction
-    typedef lambda< less<_1,_2> >::type pred;
-    typedef bind2< pred, _1, int_<4> > f;
+    typedef boost::mpl::lambda< boost::mpl::less<boost::mpl::_1,boost::mpl::_2> >::type pred;
+    typedef boost::mpl::bind2< pred, boost::mpl::_1, boost::mpl::int_<4> > f;
     
-    MPL_ASSERT(( apply_wrap1< f,int_<3> > ));
+    MPL_ASSERT(( boost::mpl::apply_wrap1< f,boost::mpl::int_<3> > ));
 }
