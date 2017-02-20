@@ -37,6 +37,12 @@
 #   undef AUX778076_VECTOR_HEADER
 #endif
 
+#define BOOST_VARIADIC_VECTOR
+#ifdef BOOST_VARIADIC_VECTOR
+#   include <boost/mpl/vector/vector_variadic.hpp>
+#else
+
+
 #include <boost/mpl/aux_/config/use_preprocessed.hpp>
 
 #if !defined(BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS) \
@@ -54,4 +60,5 @@
 #   include <boost/mpl/aux_/sequence_wrapper.hpp>
 
 #endif // BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
+#endif // VARIADIC_VECTOR
 #endif // BOOST_MPL_VECTOR_HPP_INCLUDED
